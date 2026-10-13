@@ -6,6 +6,7 @@ from spack_repo.builtin.build_systems.autotools import AutotoolsPackage
 
 from spack.package import *
 
+
 class HpnSsh(AutotoolsPackage):
     """HPN-SSH : a version of OpenSSH optimised for high-speed transfers and high-latency networks."""
 
@@ -25,9 +26,9 @@ class HpnSsh(AutotoolsPackage):
         default=False,
         description="Enable built-in U2F/FIDO2 security key support (requires libfido2)",
     )
- 
+
     depends_on("c", type="build")
- 
+
     # Building from git: the configure script must be generated
     force_autoreconf = True
     depends_on("autoconf", type="build")
@@ -35,23 +36,23 @@ class HpnSsh(AutotoolsPackage):
     depends_on("libtool", type="build")
     depends_on("m4", type="build")
     depends_on("pkgconfig", type="build")
- 
+
     # Upstream strongly recommends OpenSSL 3.0 or higher
     depends_on("openssl@3:")
     depends_on("zlib-api", when="+zlib")
     depends_on("linux-pam", when="+pam")
     depends_on("libedit", when="+libedit")
     depends_on("krb5", when="+kerberos")
-  
+
     def configure_args(self):
         spec = self.spec
         args = [f"--with-ssl-dir={spec['openssl'].prefix}"]
- 
+
         if spec.satisfies("+zlib"):
             args.append(f"--with-zlib={spec['zlib-api'].prefix}")
         else:
             args.append("--without-zlib")
- 
+
         if spec.satisfies("+pam"):
             args.append("--with-pam")
         if spec.satisfies("+libedit"):
@@ -60,5 +61,5 @@ class HpnSsh(AutotoolsPackage):
             args.append(f"--with-kerberos5={spec['krb5'].prefix}")
         if spec.satisfies("+selinux"):
             args.append("--with-selinux")
- 
+
         return args
