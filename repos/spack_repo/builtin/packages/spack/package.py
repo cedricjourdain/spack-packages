@@ -78,7 +78,8 @@ class Spack(Package):
     depends_on("python@3.6:", type="run", when="@0.20.0:")
 
     # Old Spack unfortunately depends on distutils, removed in Python 3.12
-    depends_on("python@:3.12", type="run", when="@0.18:0.20.1")
+    depends_on("python@:3.12", type="run", when="@:0.23")
+    depends_on("python@:3.13", type="run", when="@:1.0")
 
     # spack python -i ipython support
     depends_on("py-ipython", type="run")
