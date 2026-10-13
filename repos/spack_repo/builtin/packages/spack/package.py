@@ -104,6 +104,7 @@ class Spack(Package):
 
     # Fetchers
     depends_on("curl", type="run", when="fetchers=curl")
+    depends_on("git", type="run", when="@1:")
     depends_on("git", type="run", when="fetchers=git")
     depends_on("mercurial", type="run", when="fetchers=mercurial")
     depends_on("subversion", type="run", when="fetchers=subversion")
