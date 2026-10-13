@@ -7,7 +7,7 @@ from spack_repo.builtin.build_systems.cmake import CMakePackage
 
 
 class Mscp(CMakePackage):
-    """mscp: Parallel (multi-threaded) file transfer via SSH—a fast alternative to scp."""
+    """mscp: Parallel (multi-threaded) file transfer via SSH a fast alternative to scp."""
 
     homepage = "https://github.com/upa/mscp"
     git = "https://github.com/upa/mscp.git"
