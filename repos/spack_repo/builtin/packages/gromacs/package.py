@@ -645,11 +645,10 @@ class CMakeBuilder(cmake.CMakeBuilder):
                 and self.spec.satisfies("^[virtuals=mpi] cray-mpich")
                 and (self.spec.satisfies("+cuda") or self.spec.satisfies("+rocm"))
             ):
-                gtl = self.spec["cray-mpich"].package.gtl_lib
-                if gtl:
-                    ldflags = " ".join(gtl.get("ldflags", []))
-                    ldlibs = " ".join(gtl.get("ldlibs", []))
-                    options.append(f"-DCMAKE_EXE_LINKER_FLAGS={ldflags} {ldlibs}")
+                gtl_lib = self.spec["cray-mpich"].package.gtl_lib
+                if gtl_lib:
+                    gtl_flags = " ".join(gtl_lib.get("ldflags", []) + gtl_lib.get("ldlibs", []))
+                    options.append(self.define("CMAKE_EXE_LINKER_FLAGS", gtl_flags))
 
         else:
             if self.spec.satisfies("+cuda") or self.spec.satisfies("+opencl"):
