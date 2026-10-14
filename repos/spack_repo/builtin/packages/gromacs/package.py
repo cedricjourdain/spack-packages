@@ -692,12 +692,6 @@ class CMakeBuilder(cmake.CMakeBuilder):
                 # HeFFTe is only compatible with rocFFT
                 options.append("-DGMX_GPU_FFT_LIBRARY=rocFFT")
                 options.append(f"-DCMAKE_CXX_FLAGS=-I{self.spec['rocfft'].headers.directories[0]}")
-            else:
-                # VkFFT provides a portable GPU FFT backend which can be used on AMD and
-                # NVIDIA GPUs, this is the GROMACS default and offers good performance
-                options.append("-DGMX_GPU_FFT_LIBRARY=VkFFT")
-        elif self.spec.satisfies("+sycl"):
-            options.append("-DGMX_GPU_FFT_LIBRARY=VkFFT")
         if self.spec.satisfies("+intel-data-center-gpu-max"):
             options.append("-DGMX_GPU_NB_CLUSTER_SIZE=8")
             options.append("-DGMX_GPU_NB_NUM_CLUSTER_PER_CELL_X=1")
