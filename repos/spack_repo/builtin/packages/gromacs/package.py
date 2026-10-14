@@ -101,8 +101,7 @@ class Gromacs(CMakePackage, CudaPackage, ROCmPackage):
     depends_on("heffte +cuda", when="+heffte +cuda")
     depends_on("heffte +sycl", when="+heffte +sycl")
     depends_on("heffte +sycl", when="+heffte +sycl ~rocm")
-    depends_on("heffte +rocm", when="+heffte +sycl +rocm")
-    depends_on("heffte +rocm", when="+heffte ~sycl +rocm")
+    depends_on("heffte +rocm", when="+heffte +rocm")
     variant("opencl", default=False, description="Enable OpenCL support")
     variant("sycl", default=False, when="@2021:", description="Enable SYCL support")
     requires(
