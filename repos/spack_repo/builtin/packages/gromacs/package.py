@@ -114,7 +114,7 @@ class Gromacs(CMakePackage, CudaPackage, ROCmPackage):
         + "plus a clang compiler.",
     )
     depends_on("llvm-amdgpu", when="+rocm")
-    depends_on("rocfft", when="~sycl+rocm")
+    depends_on("rocfft", when="+rocm+heffte")
     for arch in ROCmPackage.amdgpu_targets:
         depends_on(f"hipsycl+rocm amdgpu_target={arch}", when=f"+sycl+rocm amdgpu_target={arch}")
     conflicts("+rocm", when="+cuda")
