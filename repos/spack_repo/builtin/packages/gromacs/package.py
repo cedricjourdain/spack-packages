@@ -504,6 +504,7 @@ class Gromacs(CMakePackage, CudaPackage, ROCmPackage):
             return (None, None, flags + gtl.get(name, []))
         return (flags, None, None)
 
+
 class CMakeBuilder(cmake.CMakeBuilder):
     @run_after("build")
     def build_test_binaries(self):
