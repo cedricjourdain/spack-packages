@@ -624,6 +624,8 @@ class CMakeBuilder(cmake.CMakeBuilder):
                         f"-DCMAKE_CXX_COMPILER={self.spec['llvm-amdgpu'].prefix}/bin/clang++"
                     )
                     options.append("-DGMX_SYCL=ACPP")
+                    
+                    # These flags are not necessary with gromacs@2025: or hipsycl@25.10:
                     if self.spec.satisfies("^hipsycl@24.06:"):
                         options.append("-DSYCL_CXX_FLAGS_EXTRA=-DACPP_ALLOW_INSTANT_SUBMISSION=1")
                     else:
@@ -634,7 +636,7 @@ class CMakeBuilder(cmake.CMakeBuilder):
                     hipsycl_prefix = self.spec["hipsycl"].prefix
                     options.append("-DCMAKE_PREFIX_PATH={0}".format(hipsycl_prefix))
             elif self.spec.satisfies("+rocm"):
-                options.append(self.define_from_variant("GPU_TARGETS", "amdgpu_target"))
+                options.append(self.define_from_variant("GMX_HIP_TARGET_ARCH", "amdgpu_target"))
                 options.append("-DGMX_GPU:STRING=HIP")
             else:
                 options.append("-DGMX_GPU:STRING=OFF")
